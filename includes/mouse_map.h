@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   fractol.h                                        .::    .:/ .      .::   */
+/*   mouse_map.h                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/10/07 14:47:45 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 15:04:37 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Created: 2019/08/19 01:30:15 by ccantin      #+#   ##    ##    #+#       */
+/*   Updated: 2019/08/19 01:31:44 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
-# include "libft.h"
-# include <math.h>
-# include "mlx.h"
-
+#ifndef MOUSE_MAP_H
+# define MOUSE_MAP_H
+# define SCROLL_UP 4
+# define SCROLL_DOWN 5
 #endif

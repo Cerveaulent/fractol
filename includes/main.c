@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   fractol.h                                        .::    .:/ .      .::   */
+/*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/10/07 14:47:45 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 15:04:37 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Created: 2019/10/07 15:25:23 by ccantin      #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/07 15:30:57 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
-# include "libft.h"
-# include <math.h>
-# include "mlx.h"
+#include "fractol.h"
 
-#endif
+int		main(int argc, char **argv)
+{
+	
+	return (0);
+}
