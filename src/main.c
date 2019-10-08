@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 15:25:23 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 15:30:57 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 16:34:37 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,6 +15,11 @@
 
 int		main(int argc, char **argv)
 {
-	
+	(void)argv;
+	(void)argc;
+	t_mlx	*mlx;
+
+	mlx = init_mlx();
+
 	return (0);
 }
