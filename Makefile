@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+      #
+#    By: charles <charles@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/10/07 14:17:38 by ccantin      #+#   ##    ##    #+#        #
-#    Updated: 2019/10/07 16:35:55 by ccantin     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/13 17:05:58 by charles     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -58,7 +58,9 @@ INC = $(addprefix $(INC_PATH)/,$(INC_NAME))
 SRCS_PATH = src
 
 SRCS_NAME = main.c \
-			init_functions.c
+			init_functions.c \
+			key_handler.c \
+			bresenham.c
 
 SRCS = $(addprefix $(SRCS_PATH)/,$(SRCS_NAME))
 
