@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/28 21:19:22 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/13 15:46:28 by charles     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 09:59:46 by charles     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,7 +30,7 @@ static void	init_bres(t_pts p_a, t_pts p_b, t_err_bres *bres)
 	bres->err = (bres->dx > bres->dy ? bres->dx : -bres->dy) / 2;
 }
 
-void		main_bresenham(t_pts p_a, t_pts p_b, t_renderer *rdr) 
+void		main_bresenham(t_pts p_a, t_pts p_b, t_renderer *rdr)
 { 
 	t_err_bres	bres;
 
