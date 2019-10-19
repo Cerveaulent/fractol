@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:45 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/13 17:14:04 by charles     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 10:00:20 by charles     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,5 +71,6 @@ typedef struct		s_err_bres
 t_mlx				*init_mlx(void);
 int					key_pressed(int key, t_mlx *mlx);
 t_renderer			*init_rdr(t_mlx *mlx, int width, int height);
-void		put_pixel(t_pts a, t_renderer *rdr);
+void				main_bresenham(t_pts p_a, t_pts p_b, t_renderer *rdr);
+void				put_pixel(t_pts a, t_renderer *rdr);
 #endif
