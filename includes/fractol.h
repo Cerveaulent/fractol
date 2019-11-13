@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   fractol.h                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: charles <charles@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:45 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 10:00:20 by charles     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/13 15:47:07 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,10 +49,17 @@ typedef struct		s_pts
 
 }					t_pts;
 
+typedef struct 		s_complex
+{
+	int				real;
+	int				imagi;
+}					t_complex;
+
 typedef struct		s_renderer
 {
 	int				r_wid;
 	int				r_hei;
+	int				r_size;
 	void			*img_ptr;
 	unsigned int	*data;
 	t_fimg			img;
@@ -68,6 +75,7 @@ typedef struct		s_err_bres
 	double			err;
 	double			e2;
 }					t_err_bres;
+
 t_mlx				*init_mlx(void);
 int					key_pressed(int key, t_mlx *mlx);
 t_renderer			*init_rdr(t_mlx *mlx, int width, int height);

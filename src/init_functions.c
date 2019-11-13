@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 16:26:59 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 16:36:29 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/13 14:08:21 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,6 +47,7 @@ t_renderer				*init_rdr(t_mlx *mlx, int width, int height)
 		return (NULL);
 	rdr->r_wid = width;
 	rdr->r_hei = height;
+	rdr->r_size = width * height;
 	rdr->img.size_l = 0;
 	rdr->img.bpp = 0;
 	rdr->img.endian = 0;
