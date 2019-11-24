@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: charles <charles@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 15:25:23 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/19 17:18:18 by charles     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/24 10:31:21 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,8 +45,7 @@ int		main(int argc, char **argv)
 
 	mlx = init_mlx();
 	rdr = init_rdr(mlx, W_WIDTH, W_HEIGHT);
-	main_bresenham(x, y, rdr);
-	main_bresenham(p, l, rdr);
+	calc_mandel(rdr, 10000);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, rdr->img_ptr, 0, 0);
 	mlx_key_hook(mlx->win_ptr, key_pressed, mlx);
 	mlx_loop(mlx->mlx_ptr);

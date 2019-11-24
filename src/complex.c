@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/13 14:56:33 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/13 16:51:01 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/21 16:06:48 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,4 +51,5 @@ t_complex	complex_subst(t_complex a, t_complex b)
 
 	res.real = a.real - b.real;
 	res.imagi = a.imagi - b.imagi;
+	return (res);
 }
