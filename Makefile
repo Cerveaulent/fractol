@@ -6,7 +6,7 @@
 #    By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/10/07 14:17:38 by ccantin      #+#   ##    ##    #+#        #
-#    Updated: 2019/11/21 16:04:28 by ccantin     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/11/24 12:05:33 by ccantin     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -23,7 +23,7 @@ OS_NAME := $(shell uname)
 
 CC = clang
 
-CC_FLAGS = -Werror -Wall -Wextra
+CC_FLAGS = -Werror -Wall -Wextra -g
 
 ############### 		LIBFT			###############
 

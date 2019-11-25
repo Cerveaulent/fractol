@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:45 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/24 10:20:35 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/25 20:47:12 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,6 +19,7 @@
 # include "colors.h"
 # include "key_map.h"
 # include "mouse_map.h"
+# include <pthread.h>
 
 /*
 ** --------------------UI_MACROS------------------- **
@@ -83,6 +84,16 @@ typedef struct		s_renderer
 
 }					t_renderer;
 
+typedef struct		s_thrd_data
+{
+	int				iter_act;
+	int				iter_max;
+	int				thrd_nb;
+	t_complex		zn;
+	t_complex		c;
+	t_renderer		*rdr;
+}					t_thrd_data;
+
 typedef struct		s_err_bres
 {
 	double			dx;
@@ -99,6 +110,8 @@ typedef struct		s_err_bres
 
 t_mlx				*init_mlx(void);
 t_renderer			*init_rdr(t_mlx *mlx, int width, int height);
+// void				init_thrd_data(double x, double y, int iter_max,
+// 					t_thrd_data *data);
 
 /*
 ** --------------------EVENTS------------------- **
@@ -114,7 +127,7 @@ void				put_pixel(t_pts a, t_renderer *rdr);
 /*
 ** --------------------CALC------------------- **
 */
-int					calc_mandel(t_renderer *rdr, int iter_max);
+int		thrd_mandel(int iter_max, t_renderer *rdr);
 t_complex			complex_add(t_complex a, t_complex b);
 t_complex			complex_mul(t_complex a, t_complex b);
 double				complex_mod(t_complex com);

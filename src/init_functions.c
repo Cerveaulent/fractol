@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 16:26:59 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/13 14:08:21 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/25 18:11:25 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,7 @@ t_mlx			*init_mlx(void)
 ** perfs
 */
 
-t_renderer				*init_rdr(t_mlx *mlx, int width, int height)
+t_renderer		*init_rdr(t_mlx *mlx, int width, int height)
 {
 	t_renderer	*rdr;
 
@@ -55,4 +55,4 @@ t_renderer				*init_rdr(t_mlx *mlx, int width, int height)
 	rdr->data = (unsigned int *)mlx_get_data_addr(rdr->img_ptr, &rdr->img.bpp,
 		&rdr->img.size_l, &rdr->img.endian);
 	return (rdr);
-}	
+}

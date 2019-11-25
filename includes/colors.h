@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   colors.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: eschnell <eschnell@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 17:59:31 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/01 18:56:06 by eschnell    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/24 17:03:45 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,4 +60,4 @@
 # define _PURPLE_TWO	0xC27BA0
 # define _PURPLE_THREE	0xA64D79
 # define _PURPLE_FOUR	0x741B47
-#endif /* COLOR_H */
+#endif

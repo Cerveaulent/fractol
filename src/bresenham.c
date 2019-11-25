@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   bresenham.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: charles <charles@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/28 21:19:22 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 09:59:46 by charles     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/25 19:33:05 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@ void		put_pixel(t_pts a, t_renderer *rdr)
 {
 	if (a.x < rdr->r_wid && a.y < rdr->r_hei && a.x > 0 
 			&& a.y > 0 &&
-			(int)(a.y * rdr->r_wid + a.x) < rdr->r_wid * rdr->r_hei)
+			(int)(a.y * rdr->r_wid + a.x) < rdr->r_size)
 				rdr->data[(int)(a.y * rdr->r_wid + a.x)] = a.color;
 }
 
