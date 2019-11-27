@@ -6,7 +6,7 @@
 #    By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/10/07 14:17:38 by ccantin      #+#   ##    ##    #+#        #
-#    Updated: 2019/11/24 12:05:33 by ccantin     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/11/27 11:09:08 by ccantin     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -62,7 +62,8 @@ SRCS_NAME = main.c \
 			init_functions.c \
 			key_handler.c \
 			bresenham.c \
-			complex.c
+			complex.c \
+			get_color.c
 
 SRCS = $(addprefix $(SRCS_PATH)/,$(SRCS_NAME))
 

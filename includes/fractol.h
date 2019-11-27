@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:45 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/25 20:47:12 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/27 13:12:44 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,16 +61,16 @@ typedef struct		s_fimg
 
 typedef struct		s_pts
 {
-	double			x;
-	double			y;
-	double			color;
+	float			x;
+	float			y;
+	float			color;
 
 }					t_pts;
 
 typedef struct 		s_complex
 {
-	double			real;
-	double			imagi;
+	float			real;
+	float			imagi;
 }					t_complex;
 
 typedef struct		s_renderer
@@ -92,16 +92,17 @@ typedef struct		s_thrd_data
 	t_complex		zn;
 	t_complex		c;
 	t_renderer		*rdr;
+	int				color_scheme;
 }					t_thrd_data;
 
 typedef struct		s_err_bres
 {
-	double			dx;
-	double			dy;
-	double			sx;
-	double			sy;
-	double			err;
-	double			e2;
+	float			dx;
+	float			dy;
+	float			sx;
+	float			sy;
+	float			err;
+	float			e2;
 }					t_err_bres;
 
 /*
@@ -110,8 +111,6 @@ typedef struct		s_err_bres
 
 t_mlx				*init_mlx(void);
 t_renderer			*init_rdr(t_mlx *mlx, int width, int height);
-// void				init_thrd_data(double x, double y, int iter_max,
-// 					t_thrd_data *data);
 
 /*
 ** --------------------EVENTS------------------- **
@@ -123,12 +122,13 @@ int					key_pressed(int key, t_mlx *mlx);
 */
 void				main_bresenham(t_pts p_a, t_pts p_b, t_renderer *rdr);
 void				put_pixel(t_pts a, t_renderer *rdr);
+int					get_color(t_thrd_data data);
 
 /*
 ** --------------------CALC------------------- **
 */
-int		thrd_mandel(int iter_max, t_renderer *rdr);
+int					thrd_mandel(int iter_max, t_renderer *rdr, int color_sch);
 t_complex			complex_add(t_complex a, t_complex b);
 t_complex			complex_mul(t_complex a, t_complex b);
-double				complex_mod(t_complex com);
+float				complex_mod(t_complex com);
 #endif

@@ -6,14 +6,14 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/13 14:56:33 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/21 16:06:48 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/27 13:11:54 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-double		complex_mod(t_complex com)
+float		complex_mod(t_complex com)
 {
 	return (sqrt(com.real * com.real + com.imagi * com.imagi));
 }
