@@ -6,7 +6,7 @@
 #    By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/10/07 14:17:38 by ccantin      #+#   ##    ##    #+#        #
-#    Updated: 2019/11/27 11:09:08 by ccantin     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/11/29 14:54:07 by ccantin     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -23,7 +23,7 @@ OS_NAME := $(shell uname)
 
 CC = clang
 
-CC_FLAGS = -Werror -Wall -Wextra -g
+CC_FLAGS = -Werror -Wall -Wextra -O2 #-fsanitize=address -g
 
 ############### 		LIBFT			###############
 

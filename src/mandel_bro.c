@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/13 14:16:40 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/27 15:10:37 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/30 17:03:39 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,8 +21,8 @@ static void	init_thrd_data(double x, double y, t_thrd_data *data, int iter_max)
 {
 	data->zn.real = 0;
 	data->zn.imagi = 0;
-	data->c.real = x / MAN_ZOOM + MAN_X_MIN;
-	data->c.imagi = y / MAN_ZOOM + MAN_Y_MIN;
+	data->c.real = x / MAN_PX_HEIGHT + data->x_min;
+	data->c.imagi = y / MAN_PX_HEIGHT + data->y_min;
 	data->iter_max = iter_max;
 	data->iter_act = 0;
 }
@@ -40,10 +40,8 @@ static int	rec_calc_mandel(t_thrd_data *data)
 		data->iter_act += 1;
 		return (rec_calc_mandel(data));
 	}
-	else if (data->iter_max == data->iter_act)
-		return (0);
 	else
-		return (1);
+		return (0);
 }
 
 /*
@@ -52,34 +50,33 @@ static int	rec_calc_mandel(t_thrd_data *data)
 
 static void	*calc_mandel(void *data)
 {
-	t_pts		tmp_pts;
-	t_thrd_data *tmp_data;
+	t_pts		pt;
+	t_thrd_data *tmp;
 	float		p;
 
-	p = (tmp_pts.x - 0.25) * (tmp_pts.x - 0.25) + (tmp_pts.y * tmp_pts.y);
-	tmp_data = (t_thrd_data *)data;
-	tmp_pts.y = tmp_data->rdr->r_hei * (tmp_data->thrd_nb) * 0.25;
-	while(tmp_pts.y < (tmp_data->rdr->r_hei * (tmp_data->thrd_nb + 1)) * 0.25)
+	p = (pt.x - 0.25) * (pt.x - 0.25) + (pt.y * pt.y);
+	tmp = (t_thrd_data *)data;
+	pt.y = tmp->rdr->r_hei * (tmp->thrd_nb) * 0.25;
+	while(pt.y < (tmp->rdr->r_hei * (tmp->thrd_nb + 1)) * 0.25)
 	{
-		tmp_pts.x = 0;
-		while((int)tmp_pts.x <= tmp_data->rdr->r_wid)
+		pt.x = 0;
+		while((int)pt.x < tmp->rdr->r_wid)
 		{
-			init_thrd_data(tmp_pts.x, tmp_pts.y, tmp_data, tmp_data->iter_max);
-			((tmp_pts.x + 1) * (tmp_pts.x + 1) + (tmp_pts.y * tmp_pts.y) < 
-				0.0625 || (tmp_pts.x < p - 4*(p*p*p*p)+ 0.0625)) ?
-				tmp_data->iter_act = tmp_data->iter_max :
-				rec_calc_mandel(tmp_data);
-			tmp_pts.color = get_color(*tmp_data);
-			put_pixel(tmp_pts, tmp_data->rdr);
-			tmp_pts.x += 1;
+			init_thrd_data(pt.x, pt.y, tmp, tmp->iter_max);
+			(pow(pt.x, 2) + pow(pt.y, 2) < 0.0625
+				|| (pt.x < p - 4*(pow(p,4))+ 0.0625)) ?
+				tmp->iter_act = tmp->iter_max : rec_calc_mandel(tmp);
+			pt.color = get_color(*tmp);
+			put_pixel(pt, tmp->rdr);
+			pt.x += 1;
 		}
-		tmp_pts.y += 1;
+		pt.y += 1;
 	}
-	free(data);
+	free(tmp);
 	pthread_exit(NULL);
 }
 
-int		thrd_mandel(int iter_max, t_renderer *rdr, int color_scheme)
+int		thrd_mandel(int iter_max, t_key_hook *k_hook, int color_scheme)
 {
 	int i;
 	t_thrd_data *data;
@@ -87,17 +84,23 @@ int		thrd_mandel(int iter_max, t_renderer *rdr, int color_scheme)
 
 	i = -1;
 	data = NULL;
+	k_hook->iter_max = iter_max;
+	k_hook->color_scheme = color_scheme;
 	while (++i < 4)
 	{
-		data = malloc(sizeof(t_thrd_data));
+		if(!(data = malloc(sizeof(t_thrd_data))))
+			return (0);
 		data->thrd_nb = i;
+		check_modif(k_hook, data);
 		init_thrd_data(0, 0, data, iter_max);
 		data->color_scheme = color_scheme;
-		data->rdr = rdr;
+		data->rdr = k_hook->rdr;
 		pthread_create(&thrd_tab[i], NULL, calc_mandel, data);
 	}
 	i = -1;
 	while (++i < 4)
 		pthread_join(thrd_tab[i], NULL);
+	mlx_put_image_to_window(k_hook->mlx->mlx_ptr, k_hook->mlx->win_ptr,
+		k_hook->rdr->img_ptr, 0, 0);
 	return (0);
 }

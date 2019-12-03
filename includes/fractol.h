@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:45 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/27 13:12:44 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/30 17:02:23 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,6 +20,12 @@
 # include "key_map.h"
 # include "mouse_map.h"
 # include <pthread.h>
+# include <stdio.h>
+//
+/*
+** --------------------GENERAL MACROS-------------- **
+*/
+# define ITER_MAX 1000
 
 /*
 ** --------------------UI_MACROS------------------- **
@@ -32,15 +38,22 @@
 /*
 ** --------------------MANDEL_MACROS------------------- **
 */
-# define MAN_X_MIN -2.1
-# define MAN_X_MAX 2.7
+# define MAN_X_MIN -2.6
+# define MAN_X_MAX 2.2
 # define MAN_Y_MIN -1.2
 # define MAN_Y_MAX 2.4
-# define MAN_ZOOM (W_HEIGHT / MAN_Y_MAX)
+# define MAN_PX_HEIGHT (W_HEIGHT / MAN_Y_MAX)
+# define MANDEL 1
 
 /*
 ** --------------------JULIA_MACROS------------------- **
 */
+# define JULIA 2
+
+/*
+** --------------------PLACEHOLDER_MACROS------------------- **
+*/
+# define PLACEHOLDER 3
 
 /*
 ** --------------------STRUCTURES------------------- **
@@ -89,11 +102,30 @@ typedef struct		s_thrd_data
 	int				iter_act;
 	int				iter_max;
 	int				thrd_nb;
+	float			x_min;
+	float			y_min;
+	float			x_max;
+	float			y_max;
 	t_complex		zn;
 	t_complex		c;
 	t_renderer		*rdr;
 	int				color_scheme;
 }					t_thrd_data;
+
+typedef struct		s_key_hook
+{
+	t_renderer		*rdr;
+	t_mlx			*mlx;
+	int				iter_max;
+	int				fract_t;
+	float			x_min;
+	float			y_min;
+	float			x_max;
+	float			y_max;	
+	float			zoom;
+	int				color_scheme;
+	
+}					t_key_hook;
 
 typedef struct		s_err_bres
 {
@@ -108,14 +140,15 @@ typedef struct		s_err_bres
 /*
 ** --------------------INIT------------------- **
 */
-
+t_key_hook			*init_hook(int fract_t);
 t_mlx				*init_mlx(void);
 t_renderer			*init_rdr(t_mlx *mlx, int width, int height);
 
 /*
 ** --------------------EVENTS------------------- **
 */
-int					key_pressed(int key, t_mlx *mlx);
+int					key_pressed(int key, t_key_hook *k_hook);
+int					mouse_pressed(int key, t_key_hook *m_hook);
 
 /*
 ** --------------------UTILS------------------- **
@@ -127,7 +160,8 @@ int					get_color(t_thrd_data data);
 /*
 ** --------------------CALC------------------- **
 */
-int					thrd_mandel(int iter_max, t_renderer *rdr, int color_sch);
+int					check_modif(t_key_hook *k_hook, t_thrd_data *data);
+int					thrd_mandel(int iter_max, t_key_hook *k_hook, int color_sch);
 t_complex			complex_add(t_complex a, t_complex b);
 t_complex			complex_mul(t_complex a, t_complex b);
 float				complex_mod(t_complex com);
