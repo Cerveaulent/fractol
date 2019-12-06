@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   mouse_map.h                                      .::    .:/ .      .::   */
+/*   free_handler.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/08/19 01:30:15 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/06 15:17:06 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Created: 2019/12/06 19:11:55 by ccantin      #+#   ##    ##    #+#       */
+/*   Updated: 2019/12/06 20:52:06 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef MOUSE_MAP_H
-# define MOUSE_MAP_H
-# ifdef _linux_
+#include "fractol.h"
 
-# define M_NONE 0
-# define M_LCLICK 1
-# define M_RCLICK 2
-# define M_WHEELCLICK 3
-# define M_WHEELUP 4
-# define M_WHEELDOWN 5
-# define MAX_MBUTTON 6
+void	free_rdr(t_renderer *rdr)
+{
+	free(rdr);
+	rdr = NULL;
+}
 
-# else
+void	free_mlx(t_mlx *mlx)
+{
+	free(mlx);
+	mlx = NULL;
+}
 
-# define SCROLL_UP 5
-# define SCROLL_DOWN 4
-# endif
-#endif
+void	free_hook(t_key_hook *hook)
+{
+	free_rdr(hook->rdr);
+	free_mlx(hook->mlx);
+	free(hook);
+	hook = NULL;
+}

@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:45 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/30 17:02:23 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/06 21:13:52 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,6 +26,7 @@
 ** --------------------GENERAL MACROS-------------- **
 */
 # define ITER_MAX 1000
+# define ZOOM 1.1
 
 /*
 ** --------------------UI_MACROS------------------- **
@@ -106,6 +107,7 @@ typedef struct		s_thrd_data
 	float			y_min;
 	float			x_max;
 	float			y_max;
+	float			zoom;
 	t_complex		zn;
 	t_complex		c;
 	t_renderer		*rdr;
@@ -148,7 +150,8 @@ t_renderer			*init_rdr(t_mlx *mlx, int width, int height);
 ** --------------------EVENTS------------------- **
 */
 int					key_pressed(int key, t_key_hook *k_hook);
-int					mouse_pressed(int key, t_key_hook *m_hook);
+int					mouse_pressed(int key, int x, int y, t_key_hook *m_hook);
+void				zoom(int key, int x, int y, t_key_hook *hook);
 
 /*
 ** --------------------UTILS------------------- **
@@ -165,4 +168,9 @@ int					thrd_mandel(int iter_max, t_key_hook *k_hook, int color_sch);
 t_complex			complex_add(t_complex a, t_complex b);
 t_complex			complex_mul(t_complex a, t_complex b);
 float				complex_mod(t_complex com);
+
+/*
+** --------------------FREE------------------- **
+*/
+void				free_hook(t_key_hook *hook);
 #endif

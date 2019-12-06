@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:13 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/30 17:03:01 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/06 21:12:36 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,28 +17,32 @@
 */
 int check_modif(t_key_hook *k_hook, t_thrd_data *data)
 {
-	if (k_hook->x_min != MAN_X_MIN || k_hook->y_min != MAN_Y_MIN)
+	if (k_hook->x_min != MAN_X_MIN || k_hook->y_min != MAN_Y_MIN 
+		|| k_hook->zoom != data->zoom)
 	{
 		data->x_min = k_hook->x_min;
 		data->y_min = k_hook->y_min;
-	}
+		data->zoom = k_hook->zoom;
+	}	
 	else
 	{
 		data->x_min = MAN_X_MIN;
 		data->y_min = MAN_Y_MIN;
+		data->zoom = MAN_PX_HEIGHT;
 	}
 	return (1);
 }
 
 static void		reset_fract(t_key_hook *hook)
 {
-	hook->iter_max = 50;
+	hook->iter_max = 20;
 	if (hook->fract_t == MANDEL)
 	{
 		hook->x_min = MAN_X_MIN;
 		hook->y_min = MAN_Y_MIN;
 		hook->x_max = MAN_X_MAX;
 		hook->y_max = MAN_Y_MAX;
+		hook->zoom = MAN_PX_HEIGHT;
 		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
 	}
 	// else if (hook->fract_t == JULIA)
@@ -57,32 +61,32 @@ static void		reset_fract(t_key_hook *hook)
 	// }
 }
 
-static void		move(int key, t_key_hook *k_hook)
+static void		move(int key, t_key_hook *hook)
 {
 	float	diff;
 
 	if (key == UP || key == DOWN)
 	{
-		if (k_hook->fract_t == MANDEL)
+		if (hook->fract_t == MANDEL)
 		{
-			diff = (key == UP) ? (-(MAN_Y_MAX * 0.0625)) : (MAN_Y_MAX * 0.0625);
-			k_hook->y_min += diff;
-			thrd_mandel(k_hook->iter_max, k_hook, k_hook->color_scheme);
+			diff = (key == UP) ? (-(MAN_Y_MAX * 0.25 * (1/hook->zoom))) : (MAN_Y_MAX * 0.25 * (1/hook->zoom));
+			hook->y_min += diff;
+			thrd_mandel(hook->iter_max, hook, hook->color_scheme);
 		}
-		// else if (k_hook->fract_t == JULIA)
+		// else if (hook->fract_t == JULIA)
 		// 	diff = (key == UP) ? -(MAN_Y_MAX * 0.0625) : (MAN_Y_MAX * 0.0625);
 		// else
 		// 	diff = (key == UP) ? -(MAN_Y_MAX * 0.0625) : (MAN_Y_MAX * 0.0625);
 	}
 	else if (key == LEFT || key == RIGHT)
 	{
-		if (k_hook->fract_t == MANDEL)
+		if (hook->fract_t == MANDEL)
 		{
-			diff = (key == LEFT) ? (-(MAN_X_MAX * 0.0625)) : (MAN_X_MAX * 0.0625);
-			k_hook->x_min += diff;
-			thrd_mandel(k_hook->iter_max, k_hook, k_hook->color_scheme);
+			diff = (key == LEFT) ? (-(MAN_X_MAX * 0.25 * (1/hook->zoom))) : (MAN_X_MAX * 0.25 * (1/hook->zoom));
+			hook->x_min += diff;
+			thrd_mandel(hook->iter_max, hook, hook->color_scheme);
 		}
-		// else if (k_hook->fract_t == JULIA)
+		// else if (hook->fract_t == JULIA)
 		// 	diff = (key == LEFT) ? -(MAN_Y_MAX * 0.0625) : (MAN_X_MAX * 0.0625);
 		// else
 		// 	diff = (key == LEFT) ? -(MAN_X_MAX * 0.0625) : (MAN_Y_MAX * 0.0625);
@@ -90,40 +94,56 @@ static void		move(int key, t_key_hook *k_hook)
 	
 }
 
-static void			zoom(int key, t_key_hook *hook)
+static void		change_color(t_key_hook *hook)
 {
-	(void)hook;
-	if (key == SCROLL_UP)
+	if (hook->color_scheme <= 3)
 	{
-		hook->x_min *= MAN_PX_HEIGHT;
-		hook->y_max *= MAN_PX_HEIGHT;
-		hook->y_min *= MAN_PX_HEIGHT;
-		hook->x_max *= MAN_PX_HEIGHT;
-		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
+		hook->color_scheme++;
 	}
-	return ;
+	else
+		hook->color_scheme = 1;
+	thrd_mandel(hook->iter_max, hook, hook->color_scheme);
 }
 
+static void		change_iter(int key, t_key_hook *hook)
+{
+	if (key == U && hook->iter_max < 1000)
+		hook->iter_max++;
+	else if (key == Y && hook->iter_max < 990)
+		hook->iter_max += 10;
+	else if (key == I && hook->iter_max > 1)
+		hook->iter_max--;
+	else if (key == O && hook->iter_max > 10)
+		hook->iter_max -= 10;
+	if (hook->fract_t == 1)
+		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
+	else if (hook->fract_t == 2)
+		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
+	else
+		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
+}
 
-int		key_pressed(int key, t_key_hook *k_hook)
+int		key_pressed(int key, t_key_hook *hook)
 {
 	if (key == ESC)
 	{
-		free(k_hook->mlx);
+		free_hook(hook);
 		exit(EXIT_SUCCESS);
 	}
 	else if (key == LEFT || key == RIGHT || key == DOWN || key == UP)
-		move(key, k_hook);
+		move(key, hook);
 	else if (key == R)
-		reset_fract(k_hook);
+		reset_fract(hook);
+	else if (key == U || key == I || key == O || key == Y)
+		change_iter(key, hook);
+	else if (key == C)
+		change_color(hook);
 	return(0);
 }
 
-int		mouse_pressed(int key, t_key_hook *m_hook)
+int		mouse_pressed(int key, int x, int y, t_key_hook *hook)
 {
-	(void)key;
-	(void)m_hook;
 	if (key == SCROLL_UP || key == SCROLL_DOWN)
-		zoom(key, m_hook);    
+		zoom(key, x, y, hook);
 	return (1);
 }

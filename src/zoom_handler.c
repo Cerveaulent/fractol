@@ -6,26 +6,61 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/08 14:07:08 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/01 16:40:25 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/06 19:51:50 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "mouse_map.h"
-#include "fdf.h"
+#include "fractol.h"
 
-void		zoom_in(t_hook *m_hook)
+static void			zoom_in(int x, int y, t_key_hook *hook)
 {
-	clear_img(m_hook);
-	scale(m_hook->tab_pts, m_hook->map_info);
-	print_map(m_hook);
-	return ;
+	float	tmp_zoom;
+
+	tmp_zoom = hook->zoom * ZOOM;
+	hook->x_min = (x / hook->zoom + hook->x_min) - (x / tmp_zoom);
+	hook->x_max = (x / hook->zoom + hook->x_max) - (x / tmp_zoom);
+	hook->y_min = (y / hook->zoom + hook->y_min) - (y / tmp_zoom);
+	hook->y_max = (y / hook->zoom + hook->y_max) - (y / tmp_zoom);
+	hook->zoom = tmp_zoom;
+	if (hook->iter_max <= 1000)
+		hook->iter_max++;
 }
 
-void		zoom_out(t_hook *m_hook)
+static void			zoom_out(int x, int y, t_key_hook *hook)
 {
-	clear_img(m_hook);
-	scale(m_hook->tab_pts, m_hook->map_info);
-	print_map(m_hook);
-	return ;
+	float	tmp_zoom;
+
+	tmp_zoom = hook->zoom / ZOOM;
+	hook->x_min = (x / hook->zoom + hook->x_min) - (x / tmp_zoom);
+	hook->x_max = (x / hook->zoom + hook->x_max) - (x / tmp_zoom);
+	hook->y_min = (y / hook->zoom + hook->y_min) - (y / tmp_zoom);
+	hook->y_max = (y / hook->zoom + hook->y_max) - (y / tmp_zoom);
+	hook->zoom = tmp_zoom;
+	if (hook->iter_max > 1)
+		hook->iter_max--;
+}
+
+void			zoom(int key, int x, int y, t_key_hook *hook)
+{
+	if (key == SCROLL_UP)
+	{
+		zoom_in(x, y, hook);
+		if (hook->fract_t == 1)
+			thrd_mandel(hook->iter_max, hook, hook->color_scheme);
+		else if (hook->fract_t == 2)
+			return ;
+		else
+			return ;
+	}
+	else
+	{
+		zoom_out(x, y, hook);
+		if (hook->fract_t == 1)
+			thrd_mandel(hook->iter_max, hook, hook->color_scheme);
+		else if (hook->fract_t == 2)
+			return ;
+		else
+			return ;
+	}
 }

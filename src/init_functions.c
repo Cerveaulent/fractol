@@ -6,12 +6,16 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 16:26:59 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/30 17:04:03 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/06 20:54:48 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+/*
+** Initialising all the variables need to calculate fractals
+*/
 
 static void			init_min_max_fract(int fract_type, t_key_hook *hook)
 {
@@ -99,6 +103,7 @@ t_key_hook		*init_hook(int fract_t)
 	hook->rdr = init_rdr(hook->mlx, W_WIDTH, W_HEIGHT);
 	hook->iter_max = 20;
 	hook->fract_t = fract_t;
+	hook->zoom = 1.1;
 	init_min_max_fract(fract_t, hook);
 	return (hook);
 }

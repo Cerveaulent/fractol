@@ -6,24 +6,59 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 15:25:23 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/30 16:55:40 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/06 20:48:00 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+static void print_invalid_args(void)
+{
+	ft_putendl("Invalid arguments");
+	ft_putendl("usage :");
+	ft_putendl("./fractol Mandelbrot");
+	ft_putendl("Fractals available : Mandelbrot, Julia, placeholder");
+}
+
+static int check_args(int ac, char *av)
+{
+	if(ac != 2)
+	{
+		print_invalid_args();
+		return (-1);
+	}
+	if(ft_strcmp(av, "Mandelbrot") && ft_strcmp(av, "Julia") &&
+		ft_strcmp(av, "Placeholder"))
+	{
+		print_invalid_args();
+		return (-1);
+	}
+	else
+		return (0);
+}
+
+static void	launch(char *av, t_key_hook *hook)
+{
+	if (!ft_strcmp(av, "Mandelbrot"))
+		thrd_mandel(20, hook, hook->color_scheme);
+	else if (!ft_strcmp(av, "Julia"))
+		return ;
+	if (!ft_strcmp(av, "Placeholder"))
+		return ;
+}
+
 int		main(int argc, char **argv)
 {
-	(void)argv;
-	(void)argc;
-	t_key_hook	*k_hook;
+	t_key_hook	*hook;
 
-	k_hook = init_hook(1);
-	thrd_mandel(20, k_hook, 3);
-	mlx_hook(k_hook->mlx->win_ptr, 2, (1L << 17), key_pressed, k_hook);
-	mlx_hook(k_hook->mlx->win_ptr, 4, (1L << 6), mouse_pressed, k_hook);
-	mlx_hook(k_hook->mlx->win_ptr, 6, (1L << 6), NULL, k_hook);
-	mlx_loop(k_hook->mlx->mlx_ptr);
+	if (check_args(argc, argv[1]))
+		return (-1);
+	hook = init_hook(1);
+	launch(argv[1], hook);
+	mlx_hook(hook->mlx->win_ptr, 2, (1L << 17), key_pressed, hook);
+	mlx_mouse_hook(hook->mlx->win_ptr, mouse_pressed, hook);
+	mlx_hook(hook->mlx->win_ptr, 6, (1L << 6), NULL, hook);
+	mlx_loop(hook->mlx->mlx_ptr);
 	return (0);
 }

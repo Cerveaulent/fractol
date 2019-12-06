@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/13 14:16:40 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/30 17:03:39 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/06 20:01:16 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,8 +21,8 @@ static void	init_thrd_data(double x, double y, t_thrd_data *data, int iter_max)
 {
 	data->zn.real = 0;
 	data->zn.imagi = 0;
-	data->c.real = x / MAN_PX_HEIGHT + data->x_min;
-	data->c.imagi = y / MAN_PX_HEIGHT + data->y_min;
+	data->c.real = x / data->zoom + data->x_min;
+	data->c.imagi = y / data->zoom + data->y_min;
 	data->iter_max = iter_max;
 	data->iter_act = 0;
 }
@@ -45,7 +45,7 @@ static int	rec_calc_mandel(t_thrd_data *data)
 }
 
 /*
-** need to change with color scheme implementation
+** Slightly optimised thread exectution to color each pixel
 */
 
 static void	*calc_mandel(void *data)
@@ -73,8 +73,13 @@ static void	*calc_mandel(void *data)
 		pt.y += 1;
 	}
 	free(tmp);
+	data = NULL;
 	pthread_exit(NULL);
 }
+
+/*
+** Creation of threads that calculate mandelbrot set
+*/
 
 int		thrd_mandel(int iter_max, t_key_hook *k_hook, int color_scheme)
 {
@@ -89,7 +94,7 @@ int		thrd_mandel(int iter_max, t_key_hook *k_hook, int color_scheme)
 	while (++i < 4)
 	{
 		if(!(data = malloc(sizeof(t_thrd_data))))
-			return (0);
+			return (-1);
 		data->thrd_nb = i;
 		check_modif(k_hook, data);
 		init_thrd_data(0, 0, data, iter_max);
