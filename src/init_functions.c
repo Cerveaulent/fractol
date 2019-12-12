@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 16:26:59 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/06 20:54:48 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/07 16:15:28 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@
 ** Initialising all the variables need to calculate fractals
 */
 
-static void			init_min_max_fract(int fract_type, t_key_hook *hook)
+void			init_fract(int fract_type, t_key_hook *hook)
 {
 	if (fract_type == MANDEL)
 	{
@@ -29,11 +29,11 @@ static void			init_min_max_fract(int fract_type, t_key_hook *hook)
 	}
 	else if (fract_type == JULIA)
 	{
-		hook->x_min = MAN_X_MIN;
-		hook->x_max = MAN_X_MAX;
-		hook->y_min = MAN_Y_MIN;
-		hook->y_max = MAN_Y_MAX;
-		hook->zoom = MAN_PX_HEIGHT;
+		hook->x_min = JU_X_MIN;
+		hook->y_min = JU_Y_MIN;
+		hook->x_max = JU_X_MAX;
+		hook->y_max = JU_Y_MAX;
+		hook->zoom = JU_PX_HEIGHT;
 	}
 	else
 	{
@@ -43,6 +43,7 @@ static void			init_min_max_fract(int fract_type, t_key_hook *hook)
 		hook->y_max = MAN_Y_MAX;
 		hook->zoom = MAN_PX_HEIGHT;
 	}
+	hook->iter_max = 20;
 }
 
 /*
@@ -101,9 +102,8 @@ t_key_hook		*init_hook(int fract_t)
 		return (NULL);
 	hook->mlx = init_mlx();
 	hook->rdr = init_rdr(hook->mlx, W_WIDTH, W_HEIGHT);
-	hook->iter_max = 20;
 	hook->fract_t = fract_t;
 	hook->zoom = 1.1;
-	init_min_max_fract(fract_t, hook);
+	init_fract(fract_t, hook);
 	return (hook);
 }

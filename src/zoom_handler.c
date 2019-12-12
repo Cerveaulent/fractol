@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/08 14:07:08 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/06 19:51:50 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/07 16:10:03 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,7 +23,7 @@ static void			zoom_in(int x, int y, t_key_hook *hook)
 	hook->y_min = (y / hook->zoom + hook->y_min) - (y / tmp_zoom);
 	hook->y_max = (y / hook->zoom + hook->y_max) - (y / tmp_zoom);
 	hook->zoom = tmp_zoom;
-	if (hook->iter_max <= 1000)
+	if (hook->iter_max <= ITER_MAX)
 		hook->iter_max++;
 }
 

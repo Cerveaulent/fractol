@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:13 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/06 21:12:36 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/07 16:22:59 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,43 +15,18 @@
 /*
 ** this function needs to move
 */
-int check_modif(t_key_hook *k_hook, t_thrd_data *data)
-{
-	if (k_hook->x_min != MAN_X_MIN || k_hook->y_min != MAN_Y_MIN 
-		|| k_hook->zoom != data->zoom)
-	{
-		data->x_min = k_hook->x_min;
-		data->y_min = k_hook->y_min;
-		data->zoom = k_hook->zoom;
-	}	
-	else
-	{
-		data->x_min = MAN_X_MIN;
-		data->y_min = MAN_Y_MIN;
-		data->zoom = MAN_PX_HEIGHT;
-	}
-	return (1);
-}
 
 static void		reset_fract(t_key_hook *hook)
 {
-	hook->iter_max = 20;
 	if (hook->fract_t == MANDEL)
 	{
-		hook->x_min = MAN_X_MIN;
-		hook->y_min = MAN_Y_MIN;
-		hook->x_max = MAN_X_MAX;
-		hook->y_max = MAN_Y_MAX;
-		hook->zoom = MAN_PX_HEIGHT;
+		init_fract(hook->fract_t, hook);
 		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
 	}
-	// else if (hook->fract_t == JULIA)
-	// {
-	// 	hook->x_min = JU_X_MIN;
-	// 	hook->y_min = JU_Y_MIN;
-	// 	hook->x_max = JU_X_MAX;
-	// 	hook->y_max = JU_Y_MAX;
-	// }
+	else if (hook->fract_t == JULIA)
+	{
+		init_fract(hook->fract_t, hook);
+	}
 	// else
 	// {
 	// 	hook->x_min = JU_X_MIN;

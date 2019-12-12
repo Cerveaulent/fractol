@@ -6,12 +6,30 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/13 14:16:40 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/06 20:01:16 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/07 16:20:25 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+static int check_modif(t_key_hook *k_hook, t_thrd_data *data)
+{
+	if (k_hook->x_min != MAN_X_MIN || k_hook->y_min != MAN_Y_MIN 
+		|| k_hook->zoom != data->zoom)
+	{
+		data->x_min = k_hook->x_min;
+		data->y_min = k_hook->y_min;
+		data->zoom = k_hook->zoom;
+	}	
+	else
+	{
+		data->x_min = MAN_X_MIN;
+		data->y_min = MAN_Y_MIN;
+		data->zoom = MAN_PX_HEIGHT;
+	}
+	return (1);
+}
 
 /*
 ** Initialising data needed to multithread process the fractal calculus
