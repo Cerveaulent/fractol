@@ -3,10 +3,14 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+      #
+#    By: charles <charles@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/10/07 14:17:38 by ccantin      #+#   ##    ##    #+#        #
+<<<<<<< HEAD
 #    Updated: 2019/12/12 15:18:00 by ccantin     ###    #+. /#+    ###.fr      #
+=======
+#    Updated: 2019/12/23 10:41:42 by charles     ###    #+. /#+    ###.fr      #
+>>>>>>> d2d0996c3cae57eb8807d5dbc4c203351af5e0d9
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -35,7 +39,7 @@ LIBFT = $(LIBFT_PATH)/libft.a
 
 ifeq ($(OS_NAME),Linux)
 	MLX_PATH = mlx_x11
-	OS_FLAGS = -lXext -lX11 -lm
+	OS_FLAGS = -lXext -lX11 -lm -pthread -lpthread
 else
 	MLX_PATH = mlx_macos
 	OS_FLAGS = -framework OpenGL -framework AppKit

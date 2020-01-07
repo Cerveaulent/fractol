@@ -3,10 +3,14 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: charles <charles@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 15:25:23 by ccantin      #+#   ##    ##    #+#       */
+<<<<<<< HEAD
 /*   Updated: 2020/01/07 17:36:40 by ccantin     ###    #+. /#+    ###.fr     */
+=======
+/*   Updated: 2019/12/23 10:48:31 by charles     ###    #+. /#+    ###.fr     */
+>>>>>>> d2d0996c3cae57eb8807d5dbc4c203351af5e0d9
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,7 +66,7 @@ int		main(int argc, char **argv)
 		return (-1);
 	hook = init_hook(2);
 	launch(argv[1], hook);
-	mlx_hook(hook->mlx->win_ptr, 2, (1L << 17), key_pressed, hook);
+	mlx_hook(hook->mlx->win_ptr, 2, (1L), key_pressed, hook);
 	mlx_mouse_hook(hook->mlx->win_ptr, mouse_pressed, hook);
 	mlx_hook(hook->mlx->win_ptr, 6, (1L << 6), NULL, hook);
 	mlx_loop(hook->mlx->mlx_ptr);
