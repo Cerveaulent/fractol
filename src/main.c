@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 15:25:23 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/07 16:16:03 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/07 17:36:40 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,11 +42,14 @@ static void	launch(char *av, t_key_hook *hook)
 {
 	if (!ft_strcmp(av, "Mandelbrot"))
 	{
-		hook->fract_t = 1;
+		hook->fract_t = MANDEL;
 		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
 	}
 	else if (!ft_strcmp(av, "Julia"))
-		return ;
+	{
+		hook->fract_t = JULIA;
+		thrd_julia(hook->iter_max, hook, hook->color_scheme);
+	}
 	if (!ft_strcmp(av, "Placeholder"))
 		return ;
 }
@@ -57,7 +60,7 @@ int		main(int argc, char **argv)
 
 	if (check_args(argc, argv[1]))
 		return (-1);
-	hook = init_hook(MANDEL);
+	hook = init_hook(2);
 	launch(argv[1], hook);
 	mlx_hook(hook->mlx->win_ptr, 2, (1L << 17), key_pressed, hook);
 	mlx_mouse_hook(hook->mlx->win_ptr, mouse_pressed, hook);

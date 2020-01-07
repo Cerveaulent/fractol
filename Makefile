@@ -6,7 +6,7 @@
 #    By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/10/07 14:17:38 by ccantin      #+#   ##    ##    #+#        #
-#    Updated: 2019/12/06 21:12:54 by ccantin     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/12/12 15:18:00 by ccantin     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -65,7 +65,8 @@ SRCS_NAME = main.c \
 			complex.c \
 			get_color.c \
 			zoom_handler.c \
-			free_handler.c
+			free_handler.c \
+			julia_sis.c
 
 SRCS = $(addprefix $(SRCS_PATH)/,$(SRCS_NAME))
 

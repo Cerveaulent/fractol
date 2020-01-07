@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:13 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/07 16:22:59 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/16 19:10:28 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,6 +26,7 @@ static void		reset_fract(t_key_hook *hook)
 	else if (hook->fract_t == JULIA)
 	{
 		init_fract(hook->fract_t, hook);
+		thrd_julia(hook->iter_max, hook, hook->color_scheme);
 	}
 	// else
 	// {
@@ -77,7 +78,10 @@ static void		change_color(t_key_hook *hook)
 	}
 	else
 		hook->color_scheme = 1;
-	thrd_mandel(hook->iter_max, hook, hook->color_scheme);
+	if (hook->fract_t == MANDEL)
+		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
+	else if (hook->fract_t == JULIA)
+		thrd_julia(hook->iter_max, hook, hook->color_scheme);
 }
 
 static void		change_iter(int key, t_key_hook *hook)
@@ -93,7 +97,7 @@ static void		change_iter(int key, t_key_hook *hook)
 	if (hook->fract_t == 1)
 		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
 	else if (hook->fract_t == 2)
-		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
+		thrd_julia(hook->iter_max, hook, hook->color_scheme);
 	else
 		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
 }

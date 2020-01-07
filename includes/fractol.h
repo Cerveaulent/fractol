@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:45 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/10 16:15:31 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/12 17:01:27 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -173,6 +173,7 @@ int					get_color(t_thrd_data data);
 ** --------------------CALC------------------- **
 */
 // int					check_modif(t_key_hook *k_hook, t_thrd_data *data);
+int					thrd_julia(int iter_max, t_key_hook *k_hook, int color_sch);
 int					thrd_mandel(int iter_max, t_key_hook *k_hook, int color_sch);
 t_complex			complex_add(t_complex a, t_complex b);
 t_complex			complex_mul(t_complex a, t_complex b);

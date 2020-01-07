@@ -6,19 +6,40 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/06 21:33:44 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/12 15:03:50 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/07 17:43:34 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+static int check_modif(t_key_hook *k_hook, t_thrd_data *data)
+{
+	if (k_hook->x_min != MAN_X_MIN || k_hook->y_min != MAN_Y_MIN 
+		|| k_hook->zoom != data->zoom)
+	{
+		data->x_min = k_hook->x_min;
+		data->y_min = k_hook->y_min;
+		data->zoom = k_hook->zoom;
+	}	
+	else
+	{
+		data->x_min = JU_X_MIN;
+		data->y_min = JU_Y_MIN;
+		data->zoom = JU_PX_HEIGHT;
+	}
+	return (1);
+}
+
 static void	init_thrd_data(double x, double y, t_thrd_data *data, int iter_max)
 {
-	data->zn.real = 0;
-	data->zn.imagi = 0;
-	data->c.real = x / data->zoom + data->x_min;
-	data->c.imagi = y / data->zoom + data->y_min;
+	(void)x;
+	(void)y;
+	data->zn.real = x / data->zoom + data->x_min;
+	data->zn.imagi = y / data->zoom + data->x_min;
+	// printf("real : %f ----- imagi : %fa\n", data->zn.real, data->zn.imagi);
+	data->c.real = -0.745;
+	data->c.imagi = 0.113;
 	data->iter_max = iter_max;
 	data->iter_act = 0;
 }
@@ -51,7 +72,7 @@ static void	*calc_julia(void *data)
 		while((int)pt.x < tmp->rdr->r_wid)
 		{
 			init_thrd_data(pt.x, pt.y, tmp, tmp->iter_max);
-			rec_calc_mandel(tmp);
+			rec_calc_julia(tmp);
 			pt.color = get_color(*tmp);
 			put_pixel(pt, tmp->rdr);
 			pt.x += 1;
@@ -82,7 +103,7 @@ int		thrd_julia(int iter_max, t_key_hook *k_hook, int color_scheme)
 		init_thrd_data(0, 0, data, iter_max);
 		data->color_scheme = color_scheme;
 		data->rdr = k_hook->rdr;
-		pthread_create(&thrd_tab[i], NULL, calc_mandel, data);
+		pthread_create(&thrd_tab[i], NULL, calc_julia, data);
 	}
 	i = -1;
 	while (++i < 4)
