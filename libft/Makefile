@@ -80,16 +80,16 @@ SOURCES = ft_atoi.c \
 
 all: $(NAME)
 
-$(NAME): $(SOURCES:.c=.o) 
-	@ ar rcs $(NAME) $(SOURCES:.c=.o) 
+$(NAME): $(SOURCES:.c=.o)
+	@ ar rcs $(NAME) $(SOURCES:.c=.o)
 %.o:%.c $(INCLUDE)
-	@ $(CC) $(CFLAGS) -I$(INCLUDE) -o $@ -c $<
+	@ $(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	@ rm -Rf $(SOURCES:.c=.o)
+	@ rm -rf $(SOURCES:.c=.o)
 
 fclean: clean
-	@ rm -Rf $(NAME)
+	@ rm -rf $(NAME)
 
 re: fclean all
 

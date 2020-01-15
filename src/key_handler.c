@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:13 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/16 19:10:28 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 19:38:35 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,8 +49,12 @@ static void		move(int key, t_key_hook *hook)
 			hook->y_min += diff;
 			thrd_mandel(hook->iter_max, hook, hook->color_scheme);
 		}
-		// else if (hook->fract_t == JULIA)
-		// 	diff = (key == UP) ? -(MAN_Y_MAX * 0.0625) : (MAN_Y_MAX * 0.0625);
+		else if (hook->fract_t == JULIA)
+		{
+			diff = (key == UP) ? (-(JU_Y_MAX * 0.25 * (1/hook->zoom))) : (JU_Y_MAX * 0.25 * (1/hook->zoom));
+			hook->y_min += diff;
+			thrd_julia(hook->iter_max, hook, hook->color_scheme);
+		}
 		// else
 		// 	diff = (key == UP) ? -(MAN_Y_MAX * 0.0625) : (MAN_Y_MAX * 0.0625);
 	}
@@ -58,12 +62,18 @@ static void		move(int key, t_key_hook *hook)
 	{
 		if (hook->fract_t == MANDEL)
 		{
-			diff = (key == LEFT) ? (-(MAN_X_MAX * 0.25 * (1/hook->zoom))) : (MAN_X_MAX * 0.25 * (1/hook->zoom));
+			diff = (key == LEFT) ? (-(MAN_X_MAX * 0.25 * (1/hook->zoom)))
+			: (MAN_X_MAX * 0.25 * (1/hook->zoom));
 			hook->x_min += diff;
 			thrd_mandel(hook->iter_max, hook, hook->color_scheme);
 		}
-		// else if (hook->fract_t == JULIA)
-		// 	diff = (key == LEFT) ? -(MAN_Y_MAX * 0.0625) : (MAN_X_MAX * 0.0625);
+		else if (hook->fract_t == JULIA)
+		{
+			diff = (key == LEFT) ? (-(JU_X_MAX * 0.25 * (1/hook->zoom)))
+			: (JU_X_MAX * 0.25 * (1/hook->zoom));
+			hook->x_min += diff;
+			thrd_julia(hook->iter_max, hook, hook->color_scheme);
+		}
 		// else
 		// 	diff = (key == LEFT) ? -(MAN_X_MAX * 0.0625) : (MAN_Y_MAX * 0.0625);
 	}
@@ -73,9 +83,7 @@ static void		move(int key, t_key_hook *hook)
 static void		change_color(t_key_hook *hook)
 {
 	if (hook->color_scheme <= 3)
-	{
 		hook->color_scheme++;
-	}
 	else
 		hook->color_scheme = 1;
 	if (hook->fract_t == MANDEL)
@@ -120,9 +128,3 @@ int		key_pressed(int key, t_key_hook *hook)
 	return(0);
 }
 
-int		mouse_pressed(int key, int x, int y, t_key_hook *hook)
-{
-	if (key == SCROLL_UP || key == SCROLL_DOWN)
-		zoom(key, x, y, hook);
-	return (1);
-}

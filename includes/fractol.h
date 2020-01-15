@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:45 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/12 17:01:27 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 18:05:24 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,21 +39,22 @@
 /*
 ** --------------------MANDEL_MACROS------------------- **
 */
+# define MANDEL 1
 # define MAN_X_MIN -2.6
 # define MAN_X_MAX 2.2
 # define MAN_Y_MIN -1.2
 # define MAN_Y_MAX 2.4
 # define MAN_PX_HEIGHT (W_HEIGHT / MAN_Y_MAX)
-# define MANDEL 1
+
 
 /*
 ** --------------------JULIA_MACROS------------------- **
 */
 # define JULIA 2
-# define JU_X_MIN -3.5
-# define JU_X_MAX 4.2
-# define JU_Y_MIN -2.3
-# define JU_Y_MAX 4.6
+# define JU_X_MIN -2.6
+# define JU_X_MAX 3
+# define JU_Y_MIN -1.6
+# define JU_Y_MAX 3
 # define JU_PX_HEIGHT (W_HEIGHT / JU_Y_MAX)
 /*
 ** --------------------PLACEHOLDER_MACROS------------------- **
@@ -111,6 +112,9 @@ typedef struct		s_thrd_data
 	float			y_min;
 	float			x_max;
 	float			y_max;
+	int				mouse_x;
+	int				mouse_y;
+	int 			ju_move;
 	float			zoom;
 	t_complex		zn;
 	t_complex		c;
@@ -131,6 +135,7 @@ typedef struct		s_key_hook
 	float			zoom;
 	int				mouse_x;
 	int				mouse_y;
+	int 			ju_move;
 	int				color_scheme;
 	
 }					t_key_hook;
@@ -160,6 +165,7 @@ void				init_fract(int fract_type, t_key_hook *hook);
 */
 int					key_pressed(int key, t_key_hook *k_hook);
 int					mouse_pressed(int key, int x, int y, t_key_hook *m_hook);
+int					update_julia(int x, int y, t_key_hook *hook);
 void				zoom(int key, int x, int y, t_key_hook *hook);
 
 /*
@@ -172,7 +178,6 @@ int					get_color(t_thrd_data data);
 /*
 ** --------------------CALC------------------- **
 */
-// int					check_modif(t_key_hook *k_hook, t_thrd_data *data);
 int					thrd_julia(int iter_max, t_key_hook *k_hook, int color_sch);
 int					thrd_mandel(int iter_max, t_key_hook *k_hook, int color_sch);
 t_complex			complex_add(t_complex a, t_complex b);

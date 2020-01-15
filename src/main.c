@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 15:25:23 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/07 18:23:18 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 19:41:23 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,11 +60,12 @@ int		main(int argc, char **argv)
 
 	if (check_args(argc, argv[1]))
 		return (-1);
-	hook = init_hook(2);
+	hook = init_hook(0);
 	launch(argv[1], hook);
 	mlx_hook(hook->mlx->win_ptr, 2, (1L), key_pressed, hook);
 	mlx_mouse_hook(hook->mlx->win_ptr, mouse_pressed, hook);
-	mlx_hook(hook->mlx->win_ptr, 6, (1L << 6), NULL, hook);
+	mlx_hook(hook->mlx->win_ptr, 6, (1L << 6), update_julia, hook);
+	mlx_hook(hook->mlx->win_ptr, 17, (1L << 17), NULL, hook);
 	mlx_loop(hook->mlx->mlx_ptr);
 	return (0);
 }
