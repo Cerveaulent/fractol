@@ -6,79 +6,12 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:13 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 19:38:35 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/20 17:34:09 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fractol.h"
-/*
-** this function needs to move
-*/
-
-static void		reset_fract(t_key_hook *hook)
-{
-	if (hook->fract_t == MANDEL)
-	{
-		init_fract(hook->fract_t, hook);
-		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
-	}
-	else if (hook->fract_t == JULIA)
-	{
-		init_fract(hook->fract_t, hook);
-		thrd_julia(hook->iter_max, hook, hook->color_scheme);
-	}
-	// else
-	// {
-	// 	hook->x_min = JU_X_MIN;
-	// 	hook->y_min = JU_Y_MIN;
-	// 	hook->x_max = JU_X_MAX;
-	// 	hook->y_max = JU_Y_MAX;
-	// }
-}
-
-static void		move(int key, t_key_hook *hook)
-{
-	float	diff;
-
-	if (key == UP || key == DOWN)
-	{
-		if (hook->fract_t == MANDEL)
-		{
-			diff = (key == UP) ? (-(MAN_Y_MAX * 0.25 * (1/hook->zoom))) : (MAN_Y_MAX * 0.25 * (1/hook->zoom));
-			hook->y_min += diff;
-			thrd_mandel(hook->iter_max, hook, hook->color_scheme);
-		}
-		else if (hook->fract_t == JULIA)
-		{
-			diff = (key == UP) ? (-(JU_Y_MAX * 0.25 * (1/hook->zoom))) : (JU_Y_MAX * 0.25 * (1/hook->zoom));
-			hook->y_min += diff;
-			thrd_julia(hook->iter_max, hook, hook->color_scheme);
-		}
-		// else
-		// 	diff = (key == UP) ? -(MAN_Y_MAX * 0.0625) : (MAN_Y_MAX * 0.0625);
-	}
-	else if (key == LEFT || key == RIGHT)
-	{
-		if (hook->fract_t == MANDEL)
-		{
-			diff = (key == LEFT) ? (-(MAN_X_MAX * 0.25 * (1/hook->zoom)))
-			: (MAN_X_MAX * 0.25 * (1/hook->zoom));
-			hook->x_min += diff;
-			thrd_mandel(hook->iter_max, hook, hook->color_scheme);
-		}
-		else if (hook->fract_t == JULIA)
-		{
-			diff = (key == LEFT) ? (-(JU_X_MAX * 0.25 * (1/hook->zoom)))
-			: (JU_X_MAX * 0.25 * (1/hook->zoom));
-			hook->x_min += diff;
-			thrd_julia(hook->iter_max, hook, hook->color_scheme);
-		}
-		// else
-		// 	diff = (key == LEFT) ? -(MAN_X_MAX * 0.0625) : (MAN_Y_MAX * 0.0625);
-	}
-	
-}
 
 static void		change_color(t_key_hook *hook)
 {

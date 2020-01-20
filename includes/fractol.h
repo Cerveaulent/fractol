@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:45 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 18:05:24 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/20 17:34:27 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -157,8 +157,7 @@ t_key_hook			*init_hook(int fract_t);
 t_mlx				*init_mlx(void);
 t_renderer			*init_rdr(t_mlx *mlx, int width, int height);
 void				init_fract(int fract_type, t_key_hook *hook);
-// void				init_thrd_data(double x, double y, t_thrd_data *data,
-// 						int iter_max);
+void				reset_fract(t_key_hook *hook);
 
 /*
 ** --------------------EVENTS------------------- **
@@ -166,6 +165,7 @@ void				init_fract(int fract_type, t_key_hook *hook);
 int					key_pressed(int key, t_key_hook *k_hook);
 int					mouse_pressed(int key, int x, int y, t_key_hook *m_hook);
 int					update_julia(int x, int y, t_key_hook *hook);
+void				move(int key, t_key_hook *hook);
 void				zoom(int key, int x, int y, t_key_hook *hook);
 
 /*

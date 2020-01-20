@@ -6,7 +6,7 @@
 #    By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/10/07 14:17:38 by ccantin      #+#   ##    ##    #+#        #
-#    Updated: 2020/01/14 15:32:13 by ccantin     ###    #+. /#+    ###.fr      #
+#    Updated: 2020/01/20 17:34:42 by ccantin     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -59,6 +59,7 @@ SRCS_PATH = src
 
 SRCS_NAME = main.c \
 			mandel_bro.c \
+			move.c \
 			init_functions.c \
 			key_handler.c \
 			bresenham.c \
@@ -67,7 +68,8 @@ SRCS_NAME = main.c \
 			zoom_handler.c \
 			free_handler.c \
 			julia_sis.c \
-			mouse_julia.c
+			mouse_julia.c \
+			init_fract.c
 
 SRCS = $(addprefix $(SRCS_PATH)/,$(SRCS_NAME))
 

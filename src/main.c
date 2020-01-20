@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 15:25:23 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 19:41:23 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/20 15:32:41 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,6 +48,7 @@ static void	launch(char *av, t_key_hook *hook)
 	else if (!ft_strcmp(av, "Julia"))
 	{
 		hook->fract_t = JULIA;
+		init_fract(hook->fract_t, hook);
 		thrd_julia(hook->iter_max, hook, hook->color_scheme);
 	}
 	if (!ft_strcmp(av, "Placeholder"))

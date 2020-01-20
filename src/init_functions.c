@@ -6,45 +6,12 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 16:26:59 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 19:49:08 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/20 15:58:48 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-/*
-** Initialising all the variables need to calculate fractals
-*/
-
-void			init_fract(int fract_type, t_key_hook *hook)
-{
-	if (fract_type == MANDEL)
-	{
-		hook->x_min = MAN_X_MIN;
-		hook->x_max = MAN_X_MAX;
-		hook->y_min = MAN_Y_MIN;
-		hook->y_max = MAN_Y_MAX;
-		hook->zoom = MAN_PX_HEIGHT;
-	}
-	else if (fract_type == JULIA)
-	{
-		hook->x_min = JU_X_MIN;
-		hook->y_min = JU_Y_MIN;
-		hook->x_max = JU_X_MAX;
-		hook->y_max = JU_Y_MAX;
-		hook->zoom = JU_PX_HEIGHT;
-	}
-	else
-	{
-		hook->x_min = MAN_X_MIN;
-		hook->x_max = MAN_X_MAX;
-		hook->y_min = MAN_Y_MIN;
-		hook->y_max = MAN_Y_MAX;
-		hook->zoom = MAN_PX_HEIGHT;
-	}
-	hook->iter_max = 20;
-}
 
 /*
 ** Initialising all the pointers by the mlx functions
@@ -105,6 +72,7 @@ t_key_hook		*init_hook(int fract_t)
 	hook->fract_t = fract_t;
 	hook->zoom = 1.1;
 	hook->ju_move = 0;
+	hook->color_scheme = 1;
 	init_fract(fract_t, hook);
 	return (hook);
 }
