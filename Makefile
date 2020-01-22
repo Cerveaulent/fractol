@@ -6,7 +6,7 @@
 #    By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/10/07 14:17:38 by ccantin      #+#   ##    ##    #+#        #
-#    Updated: 2020/01/20 17:34:42 by ccantin     ###    #+. /#+    ###.fr      #
+#    Updated: 2020/01/22 21:26:56 by ccantin     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -57,19 +57,21 @@ INC = $(addprefix $(INC_PATH)/,$(INC_NAME))
 
 SRCS_PATH = src
 
-SRCS_NAME = main.c \
+SRCS_NAME = bresenham.c \
+			complex.c \
+			free_handler.c \
+			get_color.c \
+			init_functions.c \
+			init_fract.c \
+			julia_sis.c \
+			key_handler.c \
+			main.c \
 			mandel_bro.c \
 			move.c \
-			init_functions.c \
-			key_handler.c \
-			bresenham.c \
-			complex.c \
-			get_color.c \
-			zoom_handler.c \
-			free_handler.c \
-			julia_sis.c \
 			mouse_julia.c \
-			init_fract.c
+			ship_cuzin.c \
+			zoom_handler.c
+			
 
 SRCS = $(addprefix $(SRCS_PATH)/,$(SRCS_NAME))
 

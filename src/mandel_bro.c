@@ -6,22 +6,22 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/13 14:16:40 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/07 16:20:25 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 21:18:06 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static int check_modif(t_key_hook *k_hook, t_thrd_data *data)
+static int	check_modif(t_key_hook *k_hook, t_thrd_data *data)
 {
-	if (k_hook->x_min != MAN_X_MIN || k_hook->y_min != MAN_Y_MIN 
+	if (k_hook->x_min != MAN_X_MIN || k_hook->y_min != MAN_Y_MIN \
 		|| k_hook->zoom != data->zoom)
 	{
 		data->x_min = k_hook->x_min;
 		data->y_min = k_hook->y_min;
 		data->zoom = k_hook->zoom;
-	}	
+	}
 	else
 	{
 		data->x_min = MAN_X_MIN;
@@ -46,12 +46,12 @@ static void	init_thrd_data(double x, double y, t_thrd_data *data, int iter_max)
 }
 
 /*
-** Recursive implementation of Mandelbrot set 
+** Recursive implementation of Mandelbrot set
 */
 
 static int	rec_calc_mandel(t_thrd_data *data)
 {
-	data->zn = complex_add(complex_mul(data->zn,data->zn), data->c);
+	data->zn = complex_add(complex_mul(data->zn, data->zn), data->c);
 	if (data->iter_max > data->iter_act && ((data->zn.real * data->zn.real +
 		data->zn.imagi * data->zn.imagi) < 4))
 	{
@@ -75,14 +75,14 @@ static void	*calc_mandel(void *data)
 	p = (pt.x - 0.25) * (pt.x - 0.25) + (pt.y * pt.y);
 	tmp = (t_thrd_data *)data;
 	pt.y = tmp->rdr->r_hei * (tmp->thrd_nb) * 0.25;
-	while(pt.y < (tmp->rdr->r_hei * (tmp->thrd_nb + 1)) * 0.25)
+	while (pt.y < (tmp->rdr->r_hei * (tmp->thrd_nb + 1)) * 0.25)
 	{
 		pt.x = 0;
-		while((int)pt.x < tmp->rdr->r_wid)
+		while ((int)pt.x < tmp->rdr->r_wid)
 		{
 			init_thrd_data(pt.x, pt.y, tmp, tmp->iter_max);
 			(pow(pt.x, 2) + pow(pt.y, 2) < 0.0625
-				|| (pt.x < p - 4*(pow(p,4))+ 0.0625)) ?
+				|| (pt.x < p - 4 * (pow(p, 4)) + 0.0625)) ?
 				tmp->iter_act = tmp->iter_max : rec_calc_mandel(tmp);
 			pt.color = get_color(*tmp);
 			put_pixel(pt, tmp->rdr);
@@ -96,12 +96,12 @@ static void	*calc_mandel(void *data)
 }
 
 /*
-** Creation of threads that calculate mandelbrot set
+** Creation of threads that calculate Mandelbrot set
 */
 
-int		thrd_mandel(int iter_max, t_key_hook *k_hook, int color_scheme)
+int			thrd_mandel(int iter_max, t_key_hook *k_hook, int color_scheme)
 {
-	int i;
+	int			i;
 	t_thrd_data *data;
 	pthread_t	thrd_tab[4];
 
@@ -111,7 +111,7 @@ int		thrd_mandel(int iter_max, t_key_hook *k_hook, int color_scheme)
 	k_hook->color_scheme = color_scheme;
 	while (++i < 4)
 	{
-		if(!(data = malloc(sizeof(t_thrd_data))))
+		if (!(data = malloc(sizeof(t_thrd_data))))
 			return (-1);
 		data->thrd_nb = i;
 		check_modif(k_hook, data);

@@ -6,25 +6,41 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:13 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/22 17:51:52 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 22:11:58 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+int				quit(t_key_hook *hook)
+{
+	free_hook(hook);
+	exit(EXIT_SUCCESS);
+	return (0);
+}
+
 static void		change_fract(t_key_hook *hook)
 {
-	if (hook->fract_t <= 1)
+	if (hook->fract_t <= 2)
 		hook->fract_t++;
 	else
 		hook->fract_t = 1;
 	if (hook->fract_t == MANDEL)
+	{
+		init_fract(hook);
 		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
+	}
 	else if (hook->fract_t == JULIA)
+	{
+		init_fract(hook);
 		thrd_julia(hook->iter_max, hook, hook->color_scheme);
+	}
 	else
-		return ;
+	{
+		init_fract(hook);
+		thrd_ship(hook->iter_max, hook, hook->color_scheme);
+	}
 }
 
 static void		change_color(t_key_hook *hook)
@@ -37,6 +53,8 @@ static void		change_color(t_key_hook *hook)
 		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
 	else if (hook->fract_t == JULIA)
 		thrd_julia(hook->iter_max, hook, hook->color_scheme);
+	else
+		thrd_ship(hook->iter_max, hook, hook->color_scheme);
 }
 
 static void		change_iter(int key, t_key_hook *hook)
@@ -54,16 +72,13 @@ static void		change_iter(int key, t_key_hook *hook)
 	else if (hook->fract_t == 2)
 		thrd_julia(hook->iter_max, hook, hook->color_scheme);
 	else
-		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
+		thrd_ship(hook->iter_max, hook, hook->color_scheme);
 }
 
-int		key_pressed(int key, t_key_hook *hook)
+int				key_pressed(int key, t_key_hook *hook)
 {
 	if (key == ESC)
-	{
-		free_hook(hook);
-		exit(EXIT_SUCCESS);
-	}
+		quit(hook);
 	else if (key == LEFT || key == RIGHT || key == DOWN || key == UP)
 		move(key, hook);
 	else if (key == R)
@@ -74,6 +89,5 @@ int		key_pressed(int key, t_key_hook *hook)
 		change_color(hook);
 	else if (key == F)
 		change_fract(hook);
-	return(0);
+	return (0);
 }
-

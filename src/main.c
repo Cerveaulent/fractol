@@ -6,30 +6,30 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 15:25:23 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/22 17:13:08 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 22:08:07 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static void print_invalid_args(void)
+static void	print_invalid_args(void)
 {
 	ft_putendl("Invalid arguments");
 	ft_putendl("usage :");
 	ft_putendl("./fractol Mandelbrot");
-	ft_putendl("Fractals available : Mandelbrot, Julia, placeholder");
+	ft_putendl("Fractals available : Mandelbrot, Julia, Burning");
 }
 
-static int check_args(int ac, char *av)
+static int	check_args(int ac, char *av)
 {
-	if(ac != 2)
+	if (ac != 2)
 	{
 		print_invalid_args();
 		return (-1);
 	}
-	if(ft_strcmp(av, "Mandelbrot") && ft_strcmp(av, "Julia") &&
-		ft_strcmp(av, "Placeholder"))
+	if (ft_strcmp(av, "Mandelbrot") && ft_strcmp(av, "Julia") && \
+		ft_strcmp(av, "Burning"))
 	{
 		print_invalid_args();
 		return (-1);
@@ -52,11 +52,15 @@ static void	launch(char *av, t_key_hook *hook)
 		init_fract(hook);
 		thrd_julia(hook->iter_max, hook, hook->color_scheme);
 	}
-	if (!ft_strcmp(av, "Placeholder"))
-		return ;
+	else if (!ft_strcmp(av, "Burning"))
+	{
+		hook->fract_t = BURNING;
+		init_fract(hook);
+		thrd_ship(hook->iter_max, hook, hook->color_scheme);
+	}
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_key_hook	*hook;
 
@@ -67,7 +71,7 @@ int		main(int argc, char **argv)
 	mlx_hook(hook->mlx->win_ptr, 2, (1L), key_pressed, hook);
 	mlx_mouse_hook(hook->mlx->win_ptr, mouse_pressed, hook);
 	mlx_hook(hook->mlx->win_ptr, 6, (1L << 6), update_julia, hook);
-	mlx_hook(hook->mlx->win_ptr, 17, (1L << 17), NULL, hook);
+	mlx_hook(hook->mlx->win_ptr, 17, (1L << 17), quit, hook);
 	mlx_loop(hook->mlx->mlx_ptr);
 	return (0);
 }

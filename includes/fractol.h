@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:45 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/22 16:31:38 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 22:14:04 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@
 # include "mouse_map.h"
 # include <pthread.h>
 # include <stdio.h>
-//
+
 /*
 ** --------------------GENERAL MACROS-------------- **
 */
@@ -44,8 +44,7 @@
 # define MAN_X_MAX 2.2
 # define MAN_Y_MIN -1.2
 # define MAN_Y_MAX 2.4
-# define MAN_PX_HEIGHT (W_HEIGHT / MAN_Y_MAX)
-
+# define MAN_PX_HEIGHT 450
 
 /*
 ** --------------------JULIA_MACROS------------------- **
@@ -55,11 +54,17 @@
 # define JU_X_MAX 3
 # define JU_Y_MIN -1.6
 # define JU_Y_MAX 3
-# define JU_PX_HEIGHT (W_HEIGHT / JU_Y_MAX)
+# define JU_PX_HEIGHT 360
+
 /*
-** --------------------PLACEHOLDER_MACROS------------------- **
+** --------------------BURNING_MACROS------------------- **
 */
-# define PLACEHOLDER 3
+# define BURNING 3
+# define BURN_X_MIN -2.6
+# define BURN_X_MAX 2.2
+# define BURN_Y_MIN -1.2
+# define BURN_Y_MAX 2.4
+# define BURN_PX_HEIGHT 450
 
 /*
 ** --------------------STRUCTURES------------------- **
@@ -86,7 +91,7 @@ typedef struct		s_pts
 
 }					t_pts;
 
-typedef struct 		s_complex
+typedef struct		s_complex
 {
 	float			real;
 	float			imagi;
@@ -114,7 +119,7 @@ typedef struct		s_thrd_data
 	float			y_max;
 	int				mouse_x;
 	int				mouse_y;
-	int 			ju_move;
+	int				ju_move;
 	float			zoom;
 	t_complex		zn;
 	t_complex		c;
@@ -135,9 +140,8 @@ typedef struct		s_key_hook
 	float			zoom;
 	int				mouse_x;
 	int				mouse_y;
-	int 			ju_move;
+	int				ju_move;
 	int				color_scheme;
-	
 }					t_key_hook;
 
 typedef struct		s_err_bres
@@ -153,10 +157,10 @@ typedef struct		s_err_bres
 /*
 ** --------------------INIT------------------- **
 */
+void				init_fract(t_key_hook *hook);
 t_key_hook			*init_hook(int fract_t);
 t_mlx				*init_mlx(void);
 t_renderer			*init_rdr(t_mlx *mlx, int width, int height);
-void				init_fract(t_key_hook *hook);
 void				reset_fract(t_key_hook *hook);
 
 /*
@@ -164,25 +168,27 @@ void				reset_fract(t_key_hook *hook);
 */
 int					key_pressed(int key, t_key_hook *k_hook);
 int					mouse_pressed(int key, int x, int y, t_key_hook *m_hook);
-int					update_julia(int x, int y, t_key_hook *hook);
 void				move(int key, t_key_hook *hook);
+int					update_julia(int x, int y, t_key_hook *hook);
+int					quit(t_key_hook *hook);
 void				zoom(int key, int x, int y, t_key_hook *hook);
 
 /*
 ** --------------------UTILS------------------- **
 */
+int					get_color(t_thrd_data data);
 void				main_bresenham(t_pts p_a, t_pts p_b, t_renderer *rdr);
 void				put_pixel(t_pts a, t_renderer *rdr);
-int					get_color(t_thrd_data data);
 
 /*
 ** --------------------CALC------------------- **
 */
-int					thrd_julia(int iter_max, t_key_hook *k_hook, int color_sch);
-int					thrd_mandel(int iter_max, t_key_hook *k_hook, int color_sch);
 t_complex			complex_add(t_complex a, t_complex b);
-t_complex			complex_mul(t_complex a, t_complex b);
 float				complex_mod(t_complex com);
+t_complex			complex_mul(t_complex a, t_complex b);
+int					thrd_julia(int iter_max, t_key_hook *hook, int color_sch);
+int					thrd_mandel(int iter_max, t_key_hook *hook, int color_sch);
+int					thrd_ship(int iter_max, t_key_hook *hook, int color_scheme);
 
 /*
 ** --------------------FREE------------------- **

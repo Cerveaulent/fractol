@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/08 14:07:08 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/12 15:28:43 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 21:16:40 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,7 +41,7 @@ static void			zoom_out(int x, int y, t_key_hook *hook)
 		hook->iter_max--;
 }
 
-void			zoom(int key, int x, int y, t_key_hook *hook)
+void				zoom(int key, int x, int y, t_key_hook *hook)
 {
 	if (key == SCROLL_UP)
 	{
@@ -51,7 +51,7 @@ void			zoom(int key, int x, int y, t_key_hook *hook)
 		else if (hook->fract_t == 2)
 			thrd_julia(hook->iter_max, hook, hook->color_scheme);
 		else
-			return ;
+			thrd_ship(hook->iter_max, hook, hook->color_scheme);
 	}
 	else
 	{
@@ -61,6 +61,6 @@ void			zoom(int key, int x, int y, t_key_hook *hook)
 		else if (hook->fract_t == 2)
 			thrd_julia(hook->iter_max, hook, hook->color_scheme);
 		else
-			return ;
+			thrd_ship(hook->iter_max, hook, hook->color_scheme);
 	}
 }

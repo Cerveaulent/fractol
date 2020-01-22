@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 16:26:59 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/22 17:52:24 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 21:28:50 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,7 +64,7 @@ t_renderer		*init_rdr(t_mlx *mlx, int width, int height)
 t_key_hook		*init_hook(int fract_t)
 {
 	t_key_hook	*hook;
-	
+
 	if (!(hook = malloc(sizeof(t_key_hook))))
 		return (NULL);
 	hook->mlx = init_mlx();

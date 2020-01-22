@@ -6,14 +6,14 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/26 16:06:52 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/30 16:53:20 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 21:38:45 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static int color_scheme_gray(t_thrd_data data)
+static int	color_scheme_gray(t_thrd_data data)
 {
 	if (data.iter_act < data.iter_max * 0.1)
 		return (0x0);
@@ -22,24 +22,24 @@ static int color_scheme_gray(t_thrd_data data)
 	if (data.iter_act < data.iter_max * 0.25)
 		return (_GRAY6);
 	if (data.iter_act < data.iter_max * 0.33)
-	 	return (_GRAY10);
+		return (_GRAY10);
 	if (data.iter_act < data.iter_max * 0.41)
 		return (_GRAY20);
 	if (data.iter_act < data.iter_max * 0.5)
-	 	return (_GRAY30);
+		return (_GRAY30);
 	if (data.iter_act < data.iter_max * 0.58)
 		return (_GRAY50);
 	if (data.iter_act < data.iter_max * 0.66)
-	 	return (_GRAY80);
+		return (_GRAY80);
 	if (data.iter_act < data.iter_max * 0.75)
 		return (_GRAY70);
 	if (data.iter_act < data.iter_max * 0.91)
-	 	return (_GRAY60);
+		return (_GRAY60);
 	else
-	 	return (0x000000);
+		return (0x000000);
 }
 
-static int color_scheme_earl(t_thrd_data data)
+static int	color_scheme_earl(t_thrd_data data)
 {
 	if (data.iter_act < data.iter_max * 0.1)
 		return (0x0);
@@ -67,8 +67,7 @@ static int color_scheme_earl(t_thrd_data data)
 		return (_GREEN);
 }
 
-
-static int color_scheme_spyro(t_thrd_data data)
+static int	color_scheme_spyro(t_thrd_data data)
 {
 	if (data.iter_act < data.iter_max * 0.1)
 		return (0x0);
@@ -96,9 +95,8 @@ static int color_scheme_spyro(t_thrd_data data)
 		return (_DARKGOLDENROD3);
 }
 
-static int color_scheme_virgin(t_thrd_data data)
+static int	color_scheme_virgin(t_thrd_data data)
 {
-
 	if (data.iter_act < data.iter_max * 0.25)
 		return (0x666666);
 	if (data.iter_act < data.iter_max * 0.33)
@@ -115,7 +113,7 @@ static int color_scheme_virgin(t_thrd_data data)
 		return (0x111111);
 }
 
-int get_color(t_thrd_data data)
+int			get_color(t_thrd_data data)
 {
 	if (data.color_scheme == 1)
 		return (color_scheme_gray(data));
