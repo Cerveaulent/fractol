@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:45 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/20 17:34:27 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 16:31:38 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -156,7 +156,7 @@ typedef struct		s_err_bres
 t_key_hook			*init_hook(int fract_t);
 t_mlx				*init_mlx(void);
 t_renderer			*init_rdr(t_mlx *mlx, int width, int height);
-void				init_fract(int fract_type, t_key_hook *hook);
+void				init_fract(t_key_hook *hook);
 void				reset_fract(t_key_hook *hook);
 
 /*

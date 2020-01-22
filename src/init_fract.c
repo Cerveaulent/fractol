@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/20 15:58:10 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/20 16:24:34 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 17:52:33 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,11 +39,13 @@ static void		init_julia(t_key_hook *hook)
 	hook->mouse_y = 0;
 }
 
-void			init_fract(int fract_type, t_key_hook *hook)
+void			init_fract(t_key_hook *hook)
 {
-	if (fract_type == MANDEL)
+	hook->iter_max = 30;
+	hook->color_scheme = 1;
+	if (hook->fract_t == MANDEL)
 		init_mandel(hook);
-	else if (fract_type == JULIA)
+	else if (hook->fract_t == JULIA)
 		init_julia(hook);
 	else
 	{
@@ -53,19 +55,18 @@ void			init_fract(int fract_type, t_key_hook *hook)
 		hook->y_max = MAN_Y_MAX;
 		hook->zoom = MAN_PX_HEIGHT;
 	}
-	hook->iter_max = 30;
 }
 
 void		reset_fract(t_key_hook *hook)
 {
 	if (hook->fract_t == MANDEL)
 	{
-		init_fract(hook->fract_t, hook);
+		init_fract(hook);
 		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
 	}
 	else if (hook->fract_t == JULIA)
 	{
-		init_fract(hook->fract_t, hook);
+		init_fract(hook);
 		thrd_julia(hook->iter_max, hook, hook->color_scheme);
 	}
 	// else

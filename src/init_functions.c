@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 16:26:59 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/20 15:58:48 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 17:52:24 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,7 +72,5 @@ t_key_hook		*init_hook(int fract_t)
 	hook->fract_t = fract_t;
 	hook->zoom = 1.1;
 	hook->ju_move = 0;
-	hook->color_scheme = 1;
-	init_fract(fract_t, hook);
 	return (hook);
 }

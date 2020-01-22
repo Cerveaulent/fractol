@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 15:25:23 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/20 15:32:41 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 17:13:08 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,12 +43,13 @@ static void	launch(char *av, t_key_hook *hook)
 	if (!ft_strcmp(av, "Mandelbrot"))
 	{
 		hook->fract_t = MANDEL;
+		init_fract(hook);
 		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
 	}
 	else if (!ft_strcmp(av, "Julia"))
 	{
 		hook->fract_t = JULIA;
-		init_fract(hook->fract_t, hook);
+		init_fract(hook);
 		thrd_julia(hook->iter_max, hook, hook->color_scheme);
 	}
 	if (!ft_strcmp(av, "Placeholder"))

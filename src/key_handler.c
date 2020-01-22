@@ -6,12 +6,26 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 14:47:13 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/20 17:34:09 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 17:51:52 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+static void		change_fract(t_key_hook *hook)
+{
+	if (hook->fract_t <= 1)
+		hook->fract_t++;
+	else
+		hook->fract_t = 1;
+	if (hook->fract_t == MANDEL)
+		thrd_mandel(hook->iter_max, hook, hook->color_scheme);
+	else if (hook->fract_t == JULIA)
+		thrd_julia(hook->iter_max, hook, hook->color_scheme);
+	else
+		return ;
+}
 
 static void		change_color(t_key_hook *hook)
 {
@@ -58,6 +72,8 @@ int		key_pressed(int key, t_key_hook *hook)
 		change_iter(key, hook);
 	else if (key == C)
 		change_color(hook);
+	else if (key == F)
+		change_fract(hook);
 	return(0);
 }
 
