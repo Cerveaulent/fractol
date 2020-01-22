@@ -6,7 +6,7 @@
 /*   By: ccantin <ccantin@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/15 21:11:26 by ccantin      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/22 21:09:28 by ccantin     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 22:16:22 by ccantin     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,7 +52,9 @@
 #  define PAD_3			0xFF9B
 #  define PAD_4			0xFF96
 #  define ESC 			0xFF1B
+
 # else
+
 #  define A 				0
 #  define B 				11
 #  define C 				8
