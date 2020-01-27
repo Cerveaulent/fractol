@@ -58,7 +58,6 @@ SOURCES = ft_atoi.c \
 	ft_strsplit.c \
 	ft_strstr.c \
 	ft_strsub.c \
-	ft_strtok.c \
 	ft_strtrim.c \
 	ft_tolower.c \
 	ft_toupper.c \
