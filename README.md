@@ -27,11 +27,11 @@
 
 ### Julia's set screenshots
  
- ![JULIA1](https://github.com/Cerveaulent/fractol/blob/master/Screenshot%20from%202020-05-17%2018-06-05.png)
+ ![JULIA1](https://github.com/Cerveaulent/fractol/blob/master/Julia1.png)
  
- ![JULIA2](https://github.com/Cerveaulent/fractol/blob/master/Screenshot%20from%202020-10-14%2010-04-31.png)
+ ![JULIA2](https://github.com/Cerveaulent/fractol/blob/master/Julia2.png)
   
- ![JULIA3](https://github.com/Cerveaulent/fractol/blob/master/Screenshot%20from%202020-10-14%2010-07-38.png)
+ ![JULIA3](https://github.com/Cerveaulent/fractol/blob/master/Julia3.png)
  
 ###
 
